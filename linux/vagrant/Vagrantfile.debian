@@ -1,0 +1,60 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrant configuration for testing Debian setup
+Vagrant.configure("2") do |config|
+  # Use Debian 12 (Bookworm)
+  config.vm.box = "debian/bookworm64"
+  
+  # VM configuration
+  config.vm.hostname = "debian-test"
+  
+  # Sync the setup folder to the VM
+  config.vm.synced_folder "../", "/setup"
+  
+  # VirtualBox specific settings
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "debian-setup-test"
+    vb.memory = "4096"  # 4GB RAM
+    vb.cpus = 2
+    
+    # Enable GUI if you want to test desktop environment
+    # vb.gui = true
+    
+    # Graphics settings for desktop testing
+    vb.customize ["modifyvm", :id, "--vram", "128"]
+    vb.customize ["modifyvm", :id, "--graphicscontroller", "vmsvga"]
+    vb.customize ["modifyvm", :id, "--accelerate3d", "on"]
+  end
+  
+  # Port forwarding (if needed)
+  # config.vm.network "forwarded_port", guest: 80, host: 8080
+  
+  # Provision: Update system
+  config.vm.provision "shell", inline: <<-SHELL
+    echo "Updating system..."
+    apt-get update
+  SHELL
+  
+  # Optional: Auto-run the installation script
+  # Uncomment the following to automatically run the Debian install script
+  # config.vm.provision "shell", path: "../linux/debian/install.sh"
+  
+  # Optional: Manual testing message
+  config.vm.provision "shell", inline: <<-SHELL
+    echo "=========================================="
+    echo "Debian Test VM Ready!"
+    echo "=========================================="
+    echo ""
+    echo "Your setup folder is mounted at: /setup"
+    echo ""
+    echo "To test the installation, run:"
+    echo "  cd /setup/linux/debian"
+    echo "  sudo ./install.sh"
+    echo ""
+    echo "After installation, run:"
+    echo "  sudo ./post-install.sh"
+    echo ""
+    echo "=========================================="
+  SHELL
+end
