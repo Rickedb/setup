@@ -1,0 +1,430 @@
+# Arch Linux Package List
+# Explicitly installed packages from current system
+# Date: 2026-01-22
+# Total: 263 packages
+
+# This file contains all explicitly installed packages.
+# Restore with: sudo pacman -S --needed - < packages.txt
+
+# ========================================
+# BASE SYSTEM
+# ========================================
+base
+base-devel
+linux
+linux-firmware
+linux-headers
+bash-completion
+man-db
+less
+
+# ========================================
+# BOOTLOADER & SYSTEM TOOLS
+# ========================================
+efibootmgr
+intel-ucode  # or amd-ucode for AMD
+# limine (AUR)
+# limine-mkinitcpio-hook (AUR)
+# limine-snapper-sync (AUR)
+
+# ========================================
+# DEVELOPMENT TOOLS
+# ========================================
+git
+github-cli
+cmake
+clang
+llvm
+neovim
+tree
+
+# ========================================
+# PROGRAMMING LANGUAGES
+# ========================================
+rust
+ruby
+python
+python-pip
+python-gobject
+python-build
+python-installer
+python-poetry-core
+python-hatchling
+nodejs
+npm
+deno
+dotnet-sdk
+dotnet-runtime-9.0
+
+# ========================================
+# CLI UTILITIES
+# ========================================
+bat
+fd
+ripgrep
+fzf
+eza
+dust
+btop
+tldr
+fastfetch
+inxi
+whois
+plocate
+unzip
+jq
+yq
+expac
+inetutils
+xmlstarlet
+
+# ========================================
+# CLI DEVELOPMENT TOOLS (AUR)
+# ========================================
+# lazygit (AUR)
+# lazydocker (AUR)
+# starship (AUR)
+# zoxide (AUR)
+# atac (AUR)
+# gum (AUR)
+# mise (AUR)
+
+# ========================================
+# FILESYSTEM TOOLS
+# ========================================
+btrfs-progs
+dosfstools
+exfatprogs
+ntfs-3g
+snapper
+
+# ========================================
+# WAYLAND & HYPRLAND
+# ========================================
+hyprland
+hypridle
+hyprlock
+hyprpicker
+# hyprsunset (AUR)
+xdg-desktop-portal-hyprland
+egl-wayland
+grim
+slurp
+wl-clipboard
+swaybg
+mako
+waybar
+# hyprland-guiutils (AUR)
+# hyprland-preview-share-picker (AUR)
+
+# ========================================
+# GNOME DESKTOP ENVIRONMENT
+# ========================================
+gnome-shell
+gnome-session
+gnome-control-center
+gnome-settings-daemon
+gnome-console
+gnome-text-editor
+gnome-tweaks
+gnome-keyring
+gnome-disk-utility
+gnome-system-monitor
+gnome-calculator
+gnome-calendar
+gnome-characters
+gnome-clocks
+gnome-contacts
+gnome-font-viewer
+gnome-logs
+gnome-maps
+gnome-music
+gnome-weather
+gnome-software
+gnome-backgrounds
+gnome-builder
+gnome-boxes
+gnome-calls
+gnome-chess
+gnome-color-manager
+gnome-connections
+gnome-mahjongg
+gnome-menus
+gnome-mines
+gnome-nibbles
+gnome-remote-desktop
+gnome-robots
+gnome-sound-recorder
+gnome-sudoku
+gnome-themes-extra
+gnome-tour
+gnome-user-docs
+gnome-user-share
+nautilus
+evince
+loupe
+file-roller
+baobab
+simple-scan
+dconf-editor
+polkit-gnome
+gvfs-afc
+gvfs-dnssd
+gvfs-goa
+gvfs-google
+gvfs-gphoto2
+gvfs-mtp
+gvfs-nfs
+gvfs-smb
+# gvfs-onedrive (AUR)
+# gvfs-wsdd (AUR)
+grilo-plugins
+malcontent
+rygel
+sushi
+yelp
+xdg-desktop-portal-gnome
+xdg-desktop-portal-gtk
+
+# ========================================
+# GNOME EXTENSIONS
+# ========================================
+# gnome-shell-extension-kimpanel-git (AUR)
+
+# ========================================
+# GNOME GAMES
+# ========================================
+baobab
+gnome-chess
+gnome-mahjongg
+gnome-mines
+gnome-nibbles
+gnome-robots
+gnome-sudoku
+lightsoff
+quadrapassel
+swell-foop
+
+# ========================================
+# GNOME UTILITIES
+# ========================================
+ghex
+d-spy
+epiphany
+sysprof
+snapshot
+papers
+endeavour
+decibels
+showtime
+tecla
+manuals
+orca
+impala
+
+# ========================================
+# DISPLAY MANAGER
+# ========================================
+gdm
+# sddm (alternative)
+
+# ========================================
+# AUDIO/VIDEO
+# ========================================
+pipewire
+pipewire-pulse
+pipewire-alsa
+pipewire-jack
+wireplumber
+gst-plugin-pipewire
+libpulse
+pavucontrol
+pamixer
+playerctl
+mpv
+vlc
+ffmpegthumbnailer
+imagemagick
+obs-studio
+
+# ========================================
+# NETWORKING
+# ========================================
+networkmanager
+iwd
+nss-mdns
+ufw
+# ufw-docker (AUR)
+openssh
+freerdp
+
+# ========================================
+# BLUETOOTH
+# ========================================
+bluez
+bluez-utils
+blueman
+# bluetui (AUR)
+
+# ========================================
+# INPUT METHOD
+# ========================================
+fcitx5
+fcitx5-configtool
+fcitx5-gtk
+fcitx5-qt
+
+# ========================================
+# PRINTING
+# ========================================
+cups
+cups-filters
+cups-pdf
+cups-browsed
+system-config-printer
+
+# ========================================
+# FONTS
+# ========================================
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+noto-fonts-extra
+ttf-liberation
+ttf-dejavu
+fontconfig
+# ttf-jetbrains-mono-nerd (AUR)
+# ttf-cascadia-mono-nerd (AUR)
+# ttf-ia-writer (AUR)
+# woff2-font-awesome (AUR)
+
+# ========================================
+# CONTAINERIZATION
+# ========================================
+docker
+docker-buildx
+docker-compose
+
+# ========================================
+# VIRTUALIZATION
+# ========================================
+qemu-full
+libvirt
+virt-manager
+gnome-boxes
+vagrant
+
+# ========================================
+# GUI APPLICATIONS
+# ========================================
+libreoffice-fresh
+remmina
+kdenlive
+xournalpp
+
+# ========================================
+# GUI APPLICATIONS (AUR)
+# ========================================
+# brave-bin (AUR)
+# visual-studio-code-bin (AUR)
+# obsidian (AUR)
+# spotify (AUR)
+# discord (AUR)
+# signal-desktop (AUR)
+# ghostty (AUR)
+# dbeaver (AUR)
+# localsend (AUR)
+# typora (AUR)
+
+# ========================================
+# POWER MANAGEMENT
+# ========================================
+power-profiles-daemon
+tlp
+brightnessctl
+
+# ========================================
+# FIRMWARE
+# ========================================
+linux-firmware
+sof-firmware
+
+# ========================================
+# NVIDIA (optional)
+# ========================================
+# nvidia-open-dkms
+# nvidia-utils
+# lib32-nvidia-utils
+# libva-nvidia-driver
+# lib32-libxrandr
+
+# ========================================
+# DEVELOPMENT LIBRARIES
+# ========================================
+postgresql-libs
+mariadb-libs
+libyaml
+libqalculate
+
+# ========================================
+# THEMING
+# ========================================
+qt5-wayland
+qt6-wayland
+kvantum-qt5
+# yaru-icon-theme (AUR)
+
+# ========================================
+# TERMINAL APPLICATIONS (AUR)
+# ========================================
+# aether (AUR)
+# asdcontrol (AUR)
+# chatty (AUR)
+# gpu-screen-recorder (AUR)
+# usage (AUR)
+# wiremix (AUR)
+# soundux (AUR)
+# tree-sitter-cli (AUR)
+# python-terminaltexteffects (AUR)
+
+# ========================================
+# WAYLAND UTILITIES (AUR)
+# ========================================
+# swayosd (AUR)
+# wayfreeze (AUR)
+# satty (AUR)
+# imv (AUR)
+# opencode (AUR)
+# tobi-try (AUR)
+
+# ========================================
+# SYSTEM UTILITIES (AUR)
+# ========================================
+# 1password-beta (AUR)
+# 1password-cli (AUR)
+# ventoy-bin (AUR)
+# nvtop (AUR)
+# tzupdate (AUR)
+# uwsm (AUR)
+
+# ========================================
+# DESKTOP ENVIRONMENT EXTRAS
+# ========================================
+xdg-utils
+xdg-terminal-exec
+plymouth
+wireless-regdb
+zram-generator
+
+# ========================================
+# ADDITIONAL TOOLS
+# ========================================
+wine-mono
+luarocks
+tmux
+
+# ========================================
+# PACKAGE MANAGER
+# ========================================
+# yay (AUR helper)
+

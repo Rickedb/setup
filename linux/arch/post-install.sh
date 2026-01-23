@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Post-installation configuration script for Debian
+# Post-installation configuration script for Arch Linux
 # Run this after the main install.sh completes
 
 set -e
@@ -227,8 +227,8 @@ chown -R $USERNAME:$USERNAME "$USER_HOME/.config/nvim"
 # Cleanup
 # ========================================
 echo_info "Cleaning up..."
-apt autoremove -y
-apt autoclean -y
+pacman -Sc --noconfirm
+yay -Sc --noconfirm
 
 echo_info "Post-installation configuration complete!"
 echo_warn ""

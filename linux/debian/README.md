@@ -130,6 +130,8 @@ sudo ./install.sh
 | | firmware-linux-nonfree | Non-free firmware |
 | | intel-microcode | Intel CPU microcode |
 | **Flatpak Apps** | md.obsidian.Obsidian | Knowledge base/note taking |
+| | com.discordapp.Discord | Voice/video chat and communities |
+| | com.valvesoftware.Steam | Gaming platform |
 | **System Libraries** | libpq-dev | PostgreSQL development files |
 | | libmariadb-dev | MariaDB development files |
 | | libyaml-dev | YAML library |
@@ -154,30 +156,24 @@ Run `sudo ./install-dev-tools.sh` separately to install:
 | Zoxide | Smarter cd command |
 | VS Code | Code editor/IDE |
 
+### Optional Neovim Setup
+
+Run `sudo ./install-neovim.sh` to configure Neovim with:
+
+| Component | Purpose |
+|-----------|---------|
+| LazyVim/NvChad/AstroNvim | Modern Neovim configurations (choice of framework) |
+| Tree-sitter | Syntax highlighting and code parsing |
+| Language Servers | bash, TypeScript, YAML, Docker, C# (csharp-ls) |
+| Python Tools | black, flake8, pylint, autopep8 |
+| Node LSPs | bash-ls, typescript-ls, vscode-langservers, yaml-ls, dockerfile-ls, tailwindcss-ls |
+
 ## Manual Installation Required
 
-Some packages from your Arch system are not available in Debian repositories or require manual installation:
-
-### Hyprland
-Hyprland is not packaged for Debian. To install:
-1. Follow the official guide: https://wiki.hyprland.org/Getting-Started/Installation/
-2. Or use a compatible compositor like Sway (available in Debian repos)
-
-Install Sway as an alternative:
-```bash
-sudo apt install sway waybar swaylock swayidle
-```
-
-### Hyprland-related packages
-If you build Hyprland from source, you'll also need to manually install:
-- hyprlock
-- hypridle
-- hyprpicker
-- hyprsunset
-- waybar (available in Debian)
+Some packages from your Arch system are not available in Debian stable repositories:
 
 ### NVIDIA Drivers
-If you need NVIDIA drivers (you have nvidia-open-dkms on Arch):
+If you need NVIDIA drivers:
 
 For proprietary drivers:
 ```bash
@@ -187,14 +183,6 @@ sudo apt install nvidia-driver firmware-misc-nonfree
 For open-source nouveau:
 ```bash
 sudo apt install xserver-xorg-video-nouveau
-```
-
-### Ghostty Terminal
-Ghostty is not packaged for Debian. Build from source:
-```bash
-git clone https://github.com/ghostty-org/ghostty
-cd ghostty
-# Follow build instructions in repo
 ```
 
 ### AUR-specific packages

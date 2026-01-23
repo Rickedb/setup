@@ -318,6 +318,12 @@ echo_info "Installing applications via Flatpak..."
 # Obsidian
 flatpak install -y flathub md.obsidian.Obsidian
 
+# Discord
+flatpak install -y flathub com.discordapp.Discord
+
+# Steam
+flatpak install -y flathub com.valvesoftware.Steam
+
 # ========================================
 # Firmware & Microcode
 # ========================================

@@ -19,19 +19,21 @@ sudo modprobe vboxdrv
 ### 1. Start the Debian VM
 
 ```bash
-cd vagrant
-vagrant up --provider=virtualbox
+cd linux/vagrant
+VAGRANT_VAGRANTFILE=Vagrantfile.debian vagrant up
 ```
 
 This will:
-- Download Debian 12 (Bookworm) box (~500MB)
+- Download Debian 13 (Trixie/Testing) box (~500MB)
 - Create a VM with 4GB RAM and 2 CPUs
 - Mount your setup folder to `/setup` inside the VM
+
+**Note**: The VM uses Debian Trixie (testing), which has Hyprland available in the main repositories.
 
 ### 2. Connect to the VM
 
 ```bash
-vagrant ssh
+VAGRANT_VAGRANTFILE=Vagrantfile.debian vagrant ssh
 ```
 
 ### 3. Test the Installation
@@ -74,14 +76,15 @@ vagrant up
 The `Vagrantfile.debian` is specifically configured for testing. To use it:
 
 ```bash
-# Rename or backup existing Vagrantfile
-mv Vagrantfile Vagrantfile.ubuntu.bak
+cd linux/vagrant
 
-# Use the Debian one
-cp Vagrantfile.debian Vagrantfile
-
-# Or specify directly
+# Start with Debian Vagrantfile
 VAGRANT_VAGRANTFILE=Vagrantfile.debian vagrant up
+
+# Or make it default
+cp Vagrantfile Vagrantfile.ubuntu.bak
+cp Vagrantfile.debian Vagrantfile
+vagrant up
 ```
 
 ## Testing Scenarios
@@ -146,35 +149,37 @@ lazygit --version
 
 ## VM Management
 
+**Note**: Add `VAGRANT_VAGRANTFILE=Vagrantfile.debian` before all vagrant commands if not using it as default.
+
 ### Start VM
 ```bash
-vagrant up
+VAGRANT_VAGRANTFILE=Vagrantfile.debian vagrant up
 ```
 
 ### Connect to VM
 ```bash
-vagrant ssh
+VAGRANT_VAGRANTFILE=Vagrantfile.debian vagrant ssh
 ```
 
 ### Stop VM
 ```bash
-vagrant halt
+VAGRANT_VAGRANTFILE=Vagrantfile.debian vagrant halt
 ```
 
 ### Restart VM
 ```bash
-vagrant reload
+VAGRANT_VAGRANTFILE=Vagrantfile.debian vagrant reload
 ```
 
 ### Delete VM (clean slate)
 ```bash
-vagrant destroy
-vagrant up  # Start fresh
+VAGRANT_VAGRANTFILE=Vagrantfile.debian vagrant destroy
+VAGRANT_VAGRANTFILE=Vagrantfile.debian vagrant up  # Start fresh
 ```
 
 ### Check VM Status
 ```bash
-vagrant status
+VAGRANT_VAGRANTFILE=Vagrantfile.debian vagrant status
 ```
 
 ## Snapshots (Quick Recovery)
@@ -234,12 +239,13 @@ sudo /setup/linux/debian/post-install.sh
 
 The test VM has:
 
-- **OS**: Debian 12 (Bookworm)
+- **OS**: Debian 13 (Trixie/Testing)
 - **RAM**: 4GB
 - **CPUs**: 2 cores
 - **Disk**: ~20GB (dynamic)
 - **Video RAM**: 128MB (for GUI testing)
 - **3D Acceleration**: Enabled
+- **Hyprland**: Available in main repositories
 
 Adjust in `Vagrantfile.debian` if needed:
 

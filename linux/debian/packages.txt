@@ -1,9 +1,10 @@
 # Debian Package List
 # Generated from Arch Linux configuration
 # Date: 2026-01-22
+# Updated: Complete package list from all installation scripts
 
-# This file contains a reference list of all packages that map
-# from your Arch installation to Debian equivalents
+# This file contains a reference list of all packages installed
+# across all installation scripts (install.sh, install-dev-tools.sh, install-neovim.sh)
 
 # ========================================
 # BASE SYSTEM
@@ -17,38 +18,45 @@ less
 # DEVELOPMENT TOOLS
 # ========================================
 git
-github-cli
 cmake
 clang
 llvm
 pkg-config
 neovim
-code                    # visual-studio-code-bin
+vim
+tmux
 
 # ========================================
-# PROGRAMMING LANGUAGES
+# PROGRAMMING LANGUAGES (install-dev-tools.sh)
 # ========================================
-# Rust (via rustup)
-ruby-full               # ruby
-python3                 # base system
+# Rust (via rustup - curl install)
+ruby-full
+python3
 python3-pip
 python3-venv
 python3-dev
 python3-gobject
-nodejs                  # via NodeSource repo
+python-is-python3
+nodejs                  # via NodeSource LTS repo
 npm
-dotnet-sdk-9.0         # dotnet-sdk
+dotnet-sdk-9.0         # via Microsoft repo (.NET 9)
 
 # ========================================
-# SHELLS & CLI TOOLS
+# SHELLS & CLI TOOLS (install.sh)
 # ========================================
-# starship (manual install)
-# zoxide (manual install)
-# lazygit (manual install)
-# lazydocker (manual install)
+curl
+wget
+unzip
+tar
+gzip
+gnupg
+ca-certificates
+software-properties-common
+apt-transport-https
+bash-completion
 fzf
-batcat                  # bat
-fd-find                 # fd
+batcat                  # bat (symlinked to /usr/local/bin/bat)
+fd-find                 # fd (symlinked to /usr/local/bin/fd)
 ripgrep
 jq
 yq
@@ -58,30 +66,36 @@ htop
 fastfetch
 tldr
 dust
-# eza (needs manual install or use exa)
+eza
 inxi
 whois
 plocate
-unzip
-
-# ========================================
-# SYSTEM UTILITIES
-# ========================================
 brightnessctl
-inetutils-tools         # inetutils
+inetutils-tools
 xmlstarlet
 xdg-utils
 xdg-terminal-exec
+expat
+
+# ========================================
+# DEV CLI TOOLS (install-dev-tools.sh)
+# ========================================
+gh                      # GitHub CLI (via official repo)
+code                    # VS Code (via Microsoft repo)
+# starship              # Installed via curl script
+# lazygit               # Installed from GitHub releases
+# lazydocker            # Installed via curl script
+# zoxide                # Installed via curl script
 
 # ========================================
 # FILESYSTEM
 # ========================================
 btrfs-progs
 dosfstools
-exfatprogs              # exfatprogs
+exfatprogs
 ntfs-3g
 efibootmgr
-snapper                 # snapper
+snapper
 
 # ========================================
 # WAYLAND & DISPLAY
@@ -89,20 +103,25 @@ snapper                 # snapper
 wayland-protocols
 libwayland-dev
 wlroots
-egl-wayland             # egl-wayland
+egl-wayland
 grim
 slurp
 wl-clipboard
 swaybg
-mako-notifier           # mako
-# Hyprland - requires manual build
-# hyprlock - requires manual build
-# hypridle - requires manual build
-# hyprpicker - requires manual build
-# hyprsunset - requires manual build
-# waybar - available in Debian
-xdg-desktop-portal-wlr  # xdg-desktop-portal-hyprland alternative
-xdg-desktop-portal-gtk
+mako-notifier
+swayidle
+xdg-desktop-portal-wlr
+
+# ========================================
+# HYPRLAND (from Debian Sid)
+# ========================================
+# Installed via: apt install -y -t sid
+hyprland
+xdg-desktop-portal-hyprland
+hyprpaper
+hyprlock
+hypridle
+hyprpicker
 
 # ========================================
 # GNOME DESKTOP
@@ -112,7 +131,7 @@ gnome-session
 gnome-control-center
 gnome-settings-daemon
 gnome-terminal
-gnome-console           # gnome-console
+gnome-console
 gnome-tweaks
 gnome-keyring
 gnome-disk-utility
@@ -128,20 +147,22 @@ gnome-maps
 gnome-music
 gnome-weather
 gnome-software
+gnome-software-plugin-flatpak
 gnome-backgrounds
-gnome-text-editor       # gnome-text-editor
+gnome-text-editor
 nautilus
 evince
-eog                     # loupe alternative
+eog
 file-roller
 baobab
 simple-scan
+cheese
 totem
 dconf-editor
 polkit-gnome
 gvfs
-gvfs-backends          # gvfs-* packages
-gdm3                   # gdm
+gvfs-backends
+gdm3                   # Display manager
 
 # ========================================
 # AUDIO/VIDEO
@@ -150,6 +171,7 @@ pipewire
 pipewire-pulse
 pipewire-alsa
 pipewire-jack
+pipewire-audio-client-libraries
 wireplumber
 pavucontrol
 pamixer
@@ -171,17 +193,17 @@ wireless-tools
 wpasupplicant
 avahi-daemon
 nss-mdns
-ufw                    # ufw
+ufw
 openssh-client
 openssh-server
-freerdp2-x11           # freerdp
+freerdp2-x11
 
 # ========================================
 # BLUETOOTH
 # ========================================
 bluez
 bluez-tools
-blueman                # bluetui alternative
+blueman
 
 # ========================================
 # PRINTING
@@ -195,21 +217,18 @@ system-config-printer
 # ========================================
 # FONTS
 # ========================================
-fonts-noto             # noto-fonts
-fonts-noto-cjk         # noto-fonts-cjk
-fonts-noto-color-emoji # noto-fonts-emoji
+fonts-noto
+fonts-noto-cjk
+fonts-noto-color-emoji
 fonts-liberation
 fonts-dejavu
-fonts-font-awesome     # woff2-font-awesome
+fonts-font-awesome
 fontconfig
-# ttf-jetbrains-mono-nerd - use Flatpak or manual
-# ttf-cascadia-mono-nerd - use Flatpak or manual
-# ttf-ia-writer - manual install
 
 # ========================================
 # CONTAINERIZATION
 # ========================================
-docker.io              # docker
+docker.io
 docker-compose
 
 # ========================================
@@ -218,41 +237,29 @@ docker-compose
 qemu-kvm
 libvirt-daemon-system
 libvirt-clients
+bridge-utils
 virt-manager
 gnome-boxes
 
 # ========================================
-# MEDIA & GRAPHICS
+# GUI APPLICATIONS
 # ========================================
+brave-browser          # via Brave official repo
+libreoffice
 gimp
 kdenlive
-libreoffice            # libreoffice-fresh
 remmina
 remmina-plugin-rdp
 remmina-plugin-vnc
 
 # ========================================
-# APPLICATIONS (GUI)
+# FLATPAK APPLICATIONS
 # ========================================
-# Installed via Flatpak:
-# - com.1password.OnePassword (1password)
-# - org.signal.Signal (signal-desktop)
-# - md.obsidian.Obsidian (obsidian)
-# - com.spotify.Client (spotify)
-
-# Brave Browser (via official repo)
-brave-browser          # brave-bin
-
-# VS Code (via Microsoft repo)
-code                   # visual-studio-code-bin
-
-# ========================================
-# FIRMWARE & DRIVERS
-# ========================================
-firmware-linux
-firmware-linux-nonfree
-intel-microcode        # intel-ucode
-# sof-firmware - available in newer Debian
+flatpak
+# Flatpak apps installed:
+# - md.obsidian.Obsidian
+# - com.discordapp.Discord
+# - com.valvesoftware.Steam
 
 # ========================================
 # POWER MANAGEMENT
@@ -262,21 +269,63 @@ tlp
 tlp-rdw
 
 # ========================================
-# ADDITIONAL LIBRARIES
+# FIRMWARE & DRIVERS
 # ========================================
-libpq-dev              # postgresql-libs
-libmariadb-dev         # mariadb-libs
-libyaml-dev            # libyaml
-libqalculate-dev       # libqalculate
-libva-drm2
-libva-x11-2
-# libva-nvidia-driver - for NVIDIA VA-API
+firmware-linux
+firmware-linux-nonfree
+intel-microcode
 
 # ========================================
-# PACKAGE MANAGER TOOLS
+# ADDITIONAL LIBRARIES
 # ========================================
-flatpak
-gnome-software-plugin-flatpak
+libpq-dev
+libmariadb-dev
+libyaml-dev
+libqalculate-dev
+libva-drm2
+libva-x11-2
+
+# ========================================
+# NEOVIM LANGUAGE SERVERS (install-neovim.sh)
+# ========================================
+# Already listed above: neovim, git, curl, ripgrep, fd-find
+# Already listed above: build-essential, cmake, pkg-config
+# Already listed above: python3-pip, npm
+
+# Language Servers via npm (installed as user):
+# - bash-language-server
+# - typescript-language-server
+# - vscode-langservers-extracted
+# - yaml-language-server
+# - dockerfile-language-server-nodejs
+# - @tailwindcss/language-server
+
+# Python tools via pip:
+# - pynvim
+# - black
+# - flake8
+# - pylint
+# - autopep8
+
+# .NET C# Language Server (if .NET SDK installed):
+# - csharp-ls (via dotnet tool install --global)
+
+# Neovim config frameworks (user choice):
+# - LazyVim starter
+# - NvChad starter
+# - AstroNvim template
+# - Custom minimal config
+
+# ========================================
+# PACKAGE STATISTICS
+# ========================================
+# Total APT packages: ~175
+# Flatpak apps: 3
+# NPM packages (language servers): 6
+# Python packages: 5
+# .NET tools: 1
+# Manual installs: 4 (starship, lazygit, lazydocker, zoxide)
+# Neovim configs: 4 options
 
 # ========================================
 # NOT AVAILABLE / REQUIRES MANUAL INSTALL
