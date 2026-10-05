@@ -313,6 +313,8 @@ libvirt
 virt-manager
 gnome-boxes
 vagrant
+passt
+virtiofsd
 
 # ========================================
 # GUI APPLICATIONS

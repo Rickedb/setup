@@ -3,3 +3,7 @@
 
 #Files
 *.log
+
+#Boxes domain backups
+linux/arch/boxes/*.xml.bak-*
+linux/arch/boxes/*.iso

@@ -1,13 +1,10 @@
 <domain type="kvm">
   <name>win11</name>
-  <uuid>1094638d-3e7d-45c4-84ef-f53d0f3578ee</uuid>
   <title>Win11</title>
   <metadata>
     <boxes:gnome-boxes xmlns:boxes="https://wiki.gnome.org/Apps/Boxes">
-      <os-state>installation</os-state>
+      <os-state>installed</os-state>
       <media-id>http://microsoft.com/win/11:1</media-id>
-      <media>${ISO_PATH}</media>
-      <num-reboots>1</num-reboots>
     </boxes:gnome-boxes>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
       <libosinfo:os id="http://microsoft.com/win/11"/>
@@ -16,6 +13,11 @@
   </metadata>
   <memory unit="KiB">12373196</memory>
   <currentMemory unit="KiB">12373196</currentMemory>
+  <!-- Shared memory is mandatory for virtiofs (the <filesystem> device below). -->
+  <memoryBacking>
+    <source type="memfd"/>
+    <access mode="shared"/>
+  </memoryBacking>
   <vcpu placement="static">10</vcpu>
   <os firmware="efi">
     <type arch="x86_64" machine="pc-q35-10.2">hvm</type>
@@ -24,9 +26,9 @@
       <feature enabled="yes" name="secure-boot"/>
     </firmware>
     <loader readonly="yes" secure="yes" type="pflash" format="raw">/usr/share/edk2/x64/OVMF_CODE.secboot.4m.fd</loader>
-    <nvram template="/usr/share/edk2/x64/OVMF_VARS.4m.fd" templateFormat="raw" format="raw">${NVRAM_PATH}</nvram>
-    <boot dev="cdrom"/>
+    <nvram template="/usr/share/edk2/x64/OVMF_VARS.4m.fd" templateFormat="raw" format="raw">${HOME}/.config/libvirt/qemu/nvram/win11_VARS.fd</nvram>
     <boot dev="hd"/>
+    <boot dev="cdrom"/>
     <bootmenu enable="yes"/>
   </os>
   <features>
@@ -53,13 +55,15 @@
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
     <disk type="file" device="disk">
       <driver name="qemu" type="qcow2" cache="writeback"/>
-      <source file="${DISK_PATH}"/>
+      <source file="${HOME}/.local/share/gnome-boxes/images/win11"/>
       <target dev="sda" bus="sata"/>
       <address type="drive" controller="0" bus="0" target="0" unit="0"/>
     </disk>
+    <!-- Provisioning media, built by make-provision-iso.sh. Mounts as D: in the
+         guest and carries provision.ps1 (WinRM + RDP + virtiofs + Go). -->
     <disk type="file" device="cdrom">
       <driver name="qemu" type="raw"/>
-      <source file="${ISO_PATH}" startupPolicy="mandatory"/>
+      <source file="${HOME}/.local/share/gnome-boxes/win11-provision.iso" startupPolicy="optional"/>
       <target dev="hdc" bus="sata"/>
       <readonly/>
       <address type="drive" controller="0" bus="0" target="0" unit="2"/>
@@ -106,9 +110,36 @@
     <controller type="ccid" index="0">
       <address type="usb" bus="0" port="1"/>
     </controller>
+    <!-- Shared folder: ${HOME}/Shared on the host shows up as Z:\ in the
+         guest once WinFsp + the virtio-win virtiofs service are installed
+         (provision.ps1 does that). Change <source dir=.../> to move it. -->
+    <filesystem type="mount" accessmode="passthrough">
+      <driver type="virtiofs" queue="1024"/>
+      <!-- Boxes runs this domain in the session daemon, so virtiofsd is
+           unprivileged: 'chroot' sandboxing needs root and fails with
+           "sandbox mode 'chroot' can only be used by root". -->
+      <binary path="/usr/lib/virtiofsd" xattr="on">
+        <cache mode="always"/>
+        <sandbox mode="namespace"/>
+      </binary>
+      <source dir="${HOME}/Shared"/>
+      <target dir="shared"/>
+    </filesystem>
+    <!-- User-mode networking via passt, which is what makes <portForward> work
+         (the older slirp backend has no port-forwarding support in libvirt).
+         Host ports bind on 127.0.0.1 only, so the guest is not reachable from
+         the LAN; drop the address attribute to expose them on every interface. -->
     <interface type="user">
-      <mac address="52:54:00:5b:1f:1d"/>
+      <backend type="passt"/>
       <model type="rtl8139"/>
+      <!-- RDP -->
+      <portForward proto="tcp" address="127.0.0.1">
+        <range start="3389"/>
+      </portForward>
+      <!-- WinRM: 5985 HTTP, 5986 HTTPS -->
+      <portForward proto="tcp" address="127.0.0.1">
+        <range start="5985" end="5986"/>
+      </portForward>
       <address type="pci" domain="0x0000" bus="0x02" slot="0x01" function="0x0"/>
     </interface>
     <smartcard mode="passthrough" type="spicevmc">

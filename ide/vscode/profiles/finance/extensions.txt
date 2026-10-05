@@ -1,0 +1,6 @@
+anthropic.claude-code
+fwcd.kotlin
+mathiasfrohlich.kotlin
+ms-vscode.vs-keybindings
+vscode-icons-team.vscode-icons
+vue.volar

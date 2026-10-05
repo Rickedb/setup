@@ -1,0 +1,4 @@
+anthropic.claude-code
+ms-vscode.vs-keybindings
+vscode-icons-team.vscode-icons
+vue.volar

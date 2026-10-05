@@ -1,0 +1,37 @@
+{
+    "workbench.panel.defaultLocation": "bottom",
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "oaicopilot.baseUrl": "http://pi5.local:11434/v1",
+    "workbench.iconTheme": "vscode-icons",
+    "chat.viewSessions.orientation": "stacked",
+    "workbench.browser.enableChatTools": true,
+    "chat.mcp.assisted.nuget.enabled": true,
+    "terminal.integrated.env.linux": {
+        "PATH": "${env:HOME}/.local/share/mise/installs/node/25.2.1/bin:${env:PATH}"
+    },
+    "workbench.settings.applyToAllProfiles": [],
+    "git.enableSmartCommit": true,
+    "editor.inlayHints.enabled": "offUnlessPressed",
+    "editor.aiStats.enabled": true,
+    "chat.tools.urls.autoApprove": {
+        "https://code.visualstudio.com": true,
+        "https://github.com/microsoft/vscode/wiki/*": true,
+        "https://*.npmjs.org": true,
+        "https://github.com": true,
+        "https://www.nuget.org": true,
+        "https://developers.facebook.com": true,
+        "https://core.telegram.org": true,
+        "https://telegrambots.github.io": true
+    },
+    "workbench.sideBar.location": "right",
+    "chat.tools.terminal.autoApprove": {
+        "dotnet test": true,
+        "dotnet build": true
+    },
+    "editor.fontFamily": "'Cascadia Mono', Consolas, 'Cascadia Code',  'Courier New',  monospace",
+    "editor.fontSize": 12.5,
+    "editor.mouseWheelZoom": true,
+    "editor.fontLigatures": false,
+    "claudeCode.preferredLocation": "panel",
+    "window.menuBarVisibility": "classic",
+}

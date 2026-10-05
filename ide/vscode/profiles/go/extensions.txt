@@ -1,0 +1,5 @@
+anthropic.claude-code
+golang.go
+hashicorp.terraform
+ms-vscode.vs-keybindings
+vscode-icons-team.vscode-icons

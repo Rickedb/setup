@@ -1,0 +1,7 @@
+anthropic.claude-code
+ms-dotnettools.csdevkit
+ms-dotnettools.csharp
+ms-dotnettools.vscode-dotnet-runtime
+ms-vscode.vs-keybindings
+visualstudiotoolsforunity.vstuc
+vscode-icons-team.vscode-icons

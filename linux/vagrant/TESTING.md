@@ -258,7 +258,7 @@ vb.cpus = 4         # 4 CPUs
 
 Your setup folder is automatically synced:
 
-- **Host**: `/home/rickedb/Work/github/setup`
+- **Host**: `~/Work/github/setup`
 - **VM**: `/setup`
 
 Any changes you make on your host are immediately visible in the VM.
