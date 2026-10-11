@@ -7,3 +7,6 @@
 #Boxes domain backups
 linux/arch/boxes/*.xml.bak-*
 linux/arch/boxes/*.iso
+
+#Personal values for apply scripts
+linux/*/personal.env

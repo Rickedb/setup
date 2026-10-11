@@ -4,5 +4,5 @@ include "%L"
 <dead_acute> <C> : "Ç"
 
 # Identification
-<Multi_key> <space> <n> : "Henrique Dal Bello"
-<Multi_key> <space> <e> : "henrique.d.bello@gmail.com"
+<Multi_key> <space> <n> : "{{FULL_NAME}}"
+<Multi_key> <space> <e> : "{{EMAIL}}"
