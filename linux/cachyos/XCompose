@@ -1,0 +1,8 @@
+include "%L"
+
+<dead_acute> <c> : "ç"
+<dead_acute> <C> : "Ç"
+
+# Identification
+<Multi_key> <space> <n> : "Henrique Dal Bello"
+<Multi_key> <space> <e> : "henrique.d.bello@gmail.com"
