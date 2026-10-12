@@ -112,12 +112,25 @@ pkill -x fcitx5 2>/dev/null || true
 deploy "$SRC/fcitx5/" "$CONFIG/fcitx5/" fcitx5
 
 deploy "$SRC/systemd/fcitx5.service" "$CONFIG/systemd/user/fcitx5.service" systemd
+deploy "$SRC/systemd/ssh-add.service" "$CONFIG/systemd/user/ssh-add.service" systemd
 systemctl --user daemon-reload
 systemctl --user enable fcitx5.service
 if [ -n "$WAYLAND_DISPLAY" ]; then
     systemctl --user import-environment WAYLAND_DISPLAY DISPLAY 2>/dev/null || true
     systemctl --user restart fcitx5.service
 fi
+
+# ========================================
+# SSH agent (keys from SSH_KEYS in personal.env loaded at login)
+# ========================================
+# environment.d (deployed above) points SSH_AUTH_SOCK at the agent socket.
+echo_info "Applying SSH agent config..."
+mkdir -p "$HOME/.ssh" && chmod 700 "$HOME/.ssh"
+deploy "$SRC/ssh/config" "$HOME/.ssh/config" ssh
+chmod 600 "$HOME/.ssh/config"
+systemctl --user enable ssh-agent.socket ssh-add.service
+systemctl --user restart ssh-add.service \
+    || echo_warn "ssh-add.service failed; check SSH_KEYS in personal.env and run: journalctl --user -u ssh-add"
 
 # ========================================
 # App flags (Wayland input method support)

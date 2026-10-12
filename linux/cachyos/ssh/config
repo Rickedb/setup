@@ -1,0 +1,5 @@
+# Keys listed in SSH_KEYS (personal.env) are loaded at login by ssh-add.service.
+# This adds any other key to the agent the first time it is used, so a
+# passphrase is asked once per session.
+Host *
+    AddKeysToAgent yes

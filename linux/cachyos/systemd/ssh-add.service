@@ -1,0 +1,17 @@
+[Unit]
+Description=Add SSH keys to the agent
+# ssh-agent.socket starts the agent on the first connection from ssh-add.
+Requires=ssh-agent.socket
+After=ssh-agent.socket
+
+[Service]
+Type=oneshot
+Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+# Keys without a passphrase load silently. A passphrase key needs an askpass
+# helper (SSH_ASKPASS=<path>, SSH_ASKPASS_REQUIRE=force) or is skipped here and
+# added on first use through AddKeysToAgent. The leading "-" keeps one missing
+# key from failing the unit.
+ExecStart=-/usr/bin/ssh-add {{SSH_KEYS}}
+
+[Install]
+WantedBy=default.target
