@@ -69,7 +69,7 @@ deploy() {
 # ========================================
 # Packages
 # ========================================
-PACKAGES=(fcitx5 fcitx5-gtk fcitx5-qt rsync)
+PACKAGES=(fcitx5 fcitx5-gtk fcitx5-qt rsync jq curl)
 MISSING=()
 for pkg in "${PACKAGES[@]}"; do
     pacman -Q "$pkg" &>/dev/null || MISSING+=("$pkg")
@@ -84,6 +84,20 @@ fi
 # ========================================
 echo_info "Applying Hyprland config..."
 deploy "$SRC/hyprland/" "$CONFIG/hypr/" hypr
+
+# ========================================
+# Noctalia (bar config + Claude Code usage plugin)
+# ========================================
+# The plugin reads ~/.claude/.credentials.json, so run `claude` and log in once.
+echo_info "Applying Noctalia config..."
+deploy "$SRC/noctalia/" "$CONFIG/noctalia/" noctalia
+if command -v noctalia &>/dev/null && pgrep -x noctalia &>/dev/null; then
+    noctalia msg plugins enable jrohland/claudecode >/dev/null \
+        && echo_info "Enabled Noctalia plugin jrohland/claudecode" \
+        || echo_warn "Could not enable jrohland/claudecode (is the community plugin source added?)"
+else
+    echo_warn "Noctalia is not running; later run: noctalia msg plugins enable jrohland/claudecode"
+fi
 
 # ========================================
 # Input method (ç with ' + c) and XCompose
