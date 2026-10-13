@@ -1,0 +1,10 @@
+[tools]
+android-sdk = "latest"
+dotnet = "latest"
+go = "1.26"
+java = "21"
+node = "26.11.1"
+terraform = "latest"
+
+[settings.upgrade]
+auto_prune = false

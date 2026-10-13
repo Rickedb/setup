@@ -1,0 +1,5 @@
+# AUR packages for this CachyOS install. Installed by apply.sh with yay or paru.
+# Refresh with: ./track-packages.sh
+
+visual-studio-code-insiders-bin
+dbeaver-ce-bin

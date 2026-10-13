@@ -1,0 +1,32 @@
+# Official-repo packages for this CachyOS install, added on top of the installer.
+# Installed by apply.sh (pacman -S --needed). AUR packages: packages-aur.txt.
+# Refresh with: ./track-packages.sh
+
+# apply.sh dependencies
+rsync
+openssh
+ufw
+jq
+curl
+
+# Input method (ç with ' + c)
+fcitx5
+fcitx5-gtk
+fcitx5-qt
+
+# Desktop apps
+brave-bin
+discord
+obsidian
+remmina
+freerdp
+steam
+mangohud
+
+# Dev
+docker
+docker-compose
+mise
+
+# Fonts
+ttf-cascadia-code

@@ -69,14 +69,31 @@ deploy() {
 # ========================================
 # Packages
 # ========================================
-PACKAGES=(fcitx5 fcitx5-gtk fcitx5-qt rsync jq curl openssh ufw)
+# Package lists live in packages.txt (repos) and packages-aur.txt (AUR);
+# ./track-packages.sh shows installed packages that are not tracked yet.
+read_list() { grep -vE '^\s*(#|$)' "$1"; }
+
 MISSING=()
-for pkg in "${PACKAGES[@]}"; do
+while read -r pkg; do
     pacman -Q "$pkg" &>/dev/null || MISSING+=("$pkg")
-done
+done < <(read_list "$REPO/packages.txt")
 if [ ${#MISSING[@]} -gt 0 ]; then
     echo_info "Installing: ${MISSING[*]}"
     sudo pacman -S --needed --noconfirm "${MISSING[@]}"
+fi
+
+MISSING=()
+while read -r pkg; do
+    pacman -Q "$pkg" &>/dev/null || MISSING+=("$pkg")
+done < <(read_list "$REPO/packages-aur.txt")
+if [ ${#MISSING[@]} -gt 0 ]; then
+    AUR_HELPER="$(command -v yay || command -v paru || true)"
+    if [ -n "$AUR_HELPER" ]; then
+        echo_info "Installing from AUR: ${MISSING[*]}"
+        "$AUR_HELPER" -S --needed "${MISSING[@]}"
+    else
+        echo_warn "No AUR helper (yay/paru); install manually: ${MISSING[*]}"
+    fi
 fi
 
 # ========================================
@@ -98,6 +115,13 @@ if command -v noctalia &>/dev/null && pgrep -x noctalia &>/dev/null; then
 else
     echo_warn "Noctalia is not running; later run: noctalia msg plugins enable jrohland/claudecode"
 fi
+
+# ========================================
+# mise (language runtimes and CLI tools)
+# ========================================
+# Only the config is deployed; install the tools yourself with `mise install`.
+echo_info "Applying mise config..."
+deploy "$SRC/mise/" "$CONFIG/mise/" mise
 
 # ========================================
 # Input method (ç with ' + c) and XCompose
