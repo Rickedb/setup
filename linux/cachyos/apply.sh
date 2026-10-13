@@ -69,7 +69,7 @@ deploy() {
 # ========================================
 # Packages
 # ========================================
-PACKAGES=(fcitx5 fcitx5-gtk fcitx5-qt rsync jq curl)
+PACKAGES=(fcitx5 fcitx5-gtk fcitx5-qt rsync jq curl openssh ufw)
 MISSING=()
 for pkg in "${PACKAGES[@]}"; do
     pacman -Q "$pkg" &>/dev/null || MISSING+=("$pkg")
@@ -131,6 +131,18 @@ chmod 600 "$HOME/.ssh/config"
 systemctl --user enable ssh-agent.socket ssh-add.service
 systemctl --user restart ssh-add.service \
     || echo_warn "ssh-add.service failed; check SSH_KEYS in personal.env and run: journalctl --user -u ssh-add"
+
+# ========================================
+# SSH server (sshd started at boot)
+# ========================================
+if ! systemctl is-enabled --quiet sshd.service || ! systemctl is-active --quiet sshd.service; then
+    echo_info "Enabling sshd.service..."
+    sudo systemctl enable --now sshd.service
+fi
+
+# ufw is the CachyOS firewall; allow inbound SSH (idempotent, rule is persisted)
+echo_info "Allowing SSH through ufw..."
+sudo ufw allow ssh
 
 # ========================================
 # App flags (Wayland input method support)
